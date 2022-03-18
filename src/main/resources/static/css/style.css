@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+
+#wrap {
+	width:1200px;
+	margin:auto;
+}
+
+header {
+	height:40px;
+}
+
+.login-box {
+	width:400px;
+
+}
+
+.signup-box {
+	width:400px;
+	height:500px;
+}
+
+footer {
+	height:50px;
+}
+
+
+.upload-box {
+	
+	border: solid 1px #cccccc;	
+	border-radius: 5px;
+}
+
+
+.non-resize {
+	resize:none;		
+}
+
+.more-icon {
+	font-size:18px;	
+}
+
+.likeBtn:hover {
+	text-decoration:none;
+}
+
+.heart-icon {
+	font-size:20px;
+}
+
+
+.big-icon {
+	font-size:25px;
+}
+
+.middle-size {
+	font-size:15px;
+}
+
+.image-upload-icon {
+	font-size:20px;
+	color:black;
+}
+
+
+.img-icon {
+	font-size:25px;
+}
