@@ -3,5 +3,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <hr>
 <footer class="d-flex align-items-center justify-content-center">
-	<small class="text-secondary">Copyright 2021. marondalgram all rights reserved.</small>
+	<small class="text-secondary">Copyright 2022. marondalgram all rights reserved.</small>
 </footer>
