@@ -99,8 +99,8 @@
 						
 						<!-- 댓글 입력 -->
 						<div class="d-flex mt-2 border-top">
-							<input type="text" class="form-control border-0">
-							<button class="btn btn-info ml-2 commentBtn" >게시</button>
+							<input type="text" class="form-control border-0" id="commentInput${post.id }">
+							<button class="btn btn-info ml-2 commentBtn" data-post-id="${post.id }">게시</button>
 						</div>
 						<!-- 댓글 입력 -->
 					</div>
@@ -163,7 +163,12 @@
 			});
 			
 			$(".commentBtn").on("click", function() {
-				alert("댓글 입력 버튼");
+				let postId = $(this).data("post-id");
+				
+				// $("#commentInput4")
+				let comment = $("#commentInput" + postId).val();
+				
+				alert(postId + " " + comment);
 				
 				// input 값 가져오기 
 				
