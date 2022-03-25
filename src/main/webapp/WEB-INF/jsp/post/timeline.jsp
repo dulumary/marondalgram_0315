@@ -62,7 +62,7 @@
 					<!-- 좋아요 -->
 					<div class="m-2">
 						
-						<i class="bi bi-heart heart-icon text-dark"></i>
+						<a href="#" class="likeBtn" data-post-id="${post.id }"><i class="bi bi-heart heart-icon text-dark"></i></a>
 						
 						<span class="middle-size ml-1"> 좋아요 11개 </span>
 					</div>
@@ -164,13 +164,58 @@
 			
 			$(".commentBtn").on("click", function() {
 				let postId = $(this).data("post-id");
-				
 				// $("#commentInput4")
 				let comment = $("#commentInput" + postId).val();
 				
-				alert(postId + " " + comment);
+				if(comment == "") {
+					alert("내용을 입력하세요");
+					return ;
+				}
 				
-				// input 값 가져오기 
+				$.ajax({
+					type:"post",
+					url:"/post/comment/create",
+					data:{"postId":postId, "content":comment},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글 쓰기 실패");
+						}
+						
+					},
+					error:function() {
+						alert("댓글 쓰기 에러")
+					}
+					
+				});
+								
+			});
+			
+			$(".likeBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				
+				$.ajax({
+					type:"get",
+					url:"/post/like",
+					data:{"postId":postId},
+					success:function(data) {
+						
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패");
+						}
+					},
+					error:function() {
+						alert("좋아요 에러");
+					}
+					
+				});
+				
 				
 			});
 				

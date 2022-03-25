@@ -25,7 +25,12 @@ public class PostBO {
 	}
 	
 	public List<Post> getPostList() {
-		return postDAO.selectPostList();
+		
+		List<Post> postList = postDAO.selectPostList();
+		
+		
+		
+		return 
 	}
 
 }

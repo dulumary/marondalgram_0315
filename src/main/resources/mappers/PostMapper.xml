@@ -5,7 +5,6 @@
 
 
 <mapper namespace="com.marondal.marondalgram.post.dao.PostDAO">
-
 	<insert id="insertPost" parameterType="map">
 		INSERT INTO `post`
 		(
