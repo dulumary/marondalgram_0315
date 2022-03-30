@@ -38,13 +38,13 @@
 				</div>
 				
 			
-				<c:forEach var="post" items="${postList }" >
+				<c:forEach var="postDetail" items="${postList }" >
 				<!--  피드  -->
 				<div class="card border rounded mt-3">
 					<!-- 타이틀 -->
 					<div class="d-flex justify-content-between p-2 border-bottom">
 						<div>
-							${post.userName }
+							${postDetail.post.userName }
 						</div>
 						<div class="more-icon" >
 							<a class="text-dark" href="#"> 
@@ -56,20 +56,30 @@
 					</div>
 					<!--이미지 -->
 					<div>
-						<img src="${post.imagePath }" class="w-100 imageClick">
+						<img src="${postDetail.post.imagePath }" class="w-100 imageClick">
 					</div>
 					
 					<!-- 좋아요 -->
 					<div class="m-2">
+						<c:choose>
+							<c:when test="${postDetail.like }">
+								<%-- 좋아요  빨갛고 가득찬 하트 --%>
+								<i class="bi bi-heart-fill heart-icon text-danger"></i>
+							</c:when>
+							<c:otherwise>
+								<%-- 좋아요 아닌 비어있는 검은 하트 --%>
+								<a href="#" class="likeBtn" data-post-id="${postDetail.post.id }"><i class="bi bi-heart heart-icon text-dark"></i></a>
+							</c:otherwise>
 						
-						<a href="#" class="likeBtn" data-post-id="${post.id }"><i class="bi bi-heart heart-icon text-dark"></i></a>
+						</c:choose>
+		
 						
-						<span class="middle-size ml-1"> 좋아요 11개 </span>
+						<span class="middle-size ml-1"> 좋아요 ${postDetail.likeCount }개 </span>
 					</div>
 					
 					<!--  content -->
 					<div class="middle-size m-2">
-						<b>${post.userName }</b> ${post.content }
+						<b>${postDetail.post.userName }</b> ${postDetail.post.content }
 					</div>
 					
 					<!--  댓글 -->
@@ -85,22 +95,19 @@
 						<!--  댓글  -->
 						<div class="middle-size m-2">
 							
+							<c:forEach var="comment" items="${postDetail.commentList }">							
 							<div class="mt-1">
-								<b>바다</b> 우왁 거기가 어딘가여?
+								<b>${comment.userName }</b> ${comment.content }
 							</div>
-							<div class="mt-1">
-								<b>신보람</b> 혼자 가니 좋냐?
-							</div>
-							<div class="mt-1">
-								<b>남라</b> 냠냠
-							</div>
+							</c:forEach>
+	
 						</div>
 						<!--  댓글  -->
 						
 						<!-- 댓글 입력 -->
 						<div class="d-flex mt-2 border-top">
-							<input type="text" class="form-control border-0" id="commentInput${post.id }">
-							<button class="btn btn-info ml-2 commentBtn" data-post-id="${post.id }">게시</button>
+							<input type="text" class="form-control border-0" id="commentInput${postDetail.post.id }">
+							<button class="btn btn-info ml-2 commentBtn" data-post-id="${postDetail.post.id }">게시</button>
 						</div>
 						<!-- 댓글 입력 -->
 					</div>

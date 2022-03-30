@@ -2,6 +2,9 @@ package com.marondal.marondalgram.post;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.marondal.marondalgram.post.bo.PostBO;
-import com.marondal.marondalgram.post.model.Post;
+import com.marondal.marondalgram.post.model.PostDetail;
 
 @Controller
 @RequestMapping("/post")
@@ -19,9 +22,12 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("/timeline")
-	public String timeline(Model model) {
+	public String timeline(Model model, HttpServletRequest request) {
 		
-		List<Post> postList = postBO.getPostList();
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<PostDetail> postList = postBO.getPostList(userId);
 		
 		model.addAttribute("postList", postList);
 				
