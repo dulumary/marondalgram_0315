@@ -47,7 +47,7 @@
 							${postDetail.post.userName }
 						</div>
 						<div class="more-icon" >
-							<a class="text-dark" href="#"> 
+							<a class="text-dark" href="#" data-toggle="modal" data-target="#moreModal"> 
 								<i class="bi bi-three-dots-vertical"></i> 
 							</a>
 						</div>
@@ -64,7 +64,7 @@
 						<c:choose>
 							<c:when test="${postDetail.like }">
 								<%-- 좋아요  빨갛고 가득찬 하트 --%>
-								<i class="bi bi-heart-fill heart-icon text-danger"></i>
+								<a href="#" class="unlikeBtn" data-post-id="${postDetail.post.id }"><i class="bi bi-heart-fill heart-icon text-danger"></i></a>
 							</c:when>
 							<c:otherwise>
 								<%-- 좋아요 아닌 비어있는 검은 하트 --%>
@@ -117,6 +117,19 @@
 			</div>	
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="moreModal">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	     
+	      <div class="modal-body text-center">
+	       	<a href="#" >삭제하기 </a>
+	      </div>
+	    
+	    </div>
+	  </div>
 	</div>
 
 	<script>
@@ -224,6 +237,30 @@
 				});
 				
 				
+			});
+			
+			$(".unlikeBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/unlike",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+						
+					}, 
+					error:function() {
+						alert("좋아요 취소 에러");
+					}
+					
+				});
 			});
 				
 		});
