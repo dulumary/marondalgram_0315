@@ -63,5 +63,53 @@ public class FileManagerService {
 		return "/images/" + directoryName + file.getOriginalFilename();
 		
 	}
+	
+	// 파일 삭제 
+	public static boolean removeFile(String filePath) {
+		
+		if(filePath == null) {
+			logger.error("FileManagerService-removeFile : 파일 없음");
+			
+			return false;
+		}
+		
+		// filePath : /images/2_359324532/test.png
+		// 실제파일 경로 : D:\\김인규 강사\\web\\0312\\springProject\\memo\\upload\\images\\2_359324532/test.png
+		
+		// FILE_UPLOAD_PATH + 2_359324532/test.png
+		// 실제 파일 경로
+		String realFilePath = FILE_UPLOAD_PATH + filePath.replace("/images/", "");
+		
+		// 파일 삭제 
+		Path path = Paths.get(realFilePath);
+		// 파일이 있는지 확인
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				logger.error("FileManagerService-removeFile : 파일 삭제 실패");
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		// 실제파일 경로 : D:\\김인규 강사\\web\\0312\\springProject\\memo\\upload\\images\\2_359324532/test.png
+		// 디렉토리 삭제 
+		// 디렉토리 경로 : D:\\김인규 강사\\web\\0312\\springProject\\memo\\upload\\images\\2_359324532
+		
+		path = path.getParent();
+		
+		// 디렉토리 존재 여부 확인
+		if(Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				logger.error("FileManagerService-removeFile : 디렉토리 삭제 실패");
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
+	}
 
 }

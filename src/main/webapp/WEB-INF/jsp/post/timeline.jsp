@@ -47,7 +47,7 @@
 							${postDetail.post.userName }
 						</div>
 						<div class="more-icon" >
-							<a class="text-dark" href="#" data-toggle="modal" data-target="#moreModal"> 
+							<a class="text-dark moreBtn" href="#" data-post-id="${postDetail.post.id }" data-toggle="modal" data-target="#moreModal"> 
 								<i class="bi bi-three-dots-vertical"></i> 
 							</a>
 						</div>
@@ -125,7 +125,7 @@
 	    <div class="modal-content">
 	     
 	      <div class="modal-body text-center">
-	       	<a href="#" >삭제하기 </a>
+	       	<a href="#" id="deleteBtn">삭제하기 </a>
 	      </div>
 	    
 	    </div>
@@ -262,6 +262,41 @@
 					
 				});
 			});
+			
+			$(".moreBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				
+				$("#deleteBtn").data("post-id", postId);
+				// <a href="" data-post-id="3">
+				
+				
+			});
+			
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get",
+					url:"/post/delete",
+					data:{"postId":postId},
+					success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					}, 
+					error:function() {
+						alert("삭제 에러");
+					}
+				});
+				
+			})
 				
 		});
 	
