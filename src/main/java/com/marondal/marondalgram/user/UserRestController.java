@@ -17,6 +17,7 @@ import com.marondal.marondalgram.user.bo.UserBO;
 import com.marondal.marondalgram.user.model.User;
 
 @RestController
+// 수정수정
 @RequestMapping("/user")
 public class UserRestController {
 	
